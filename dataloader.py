@@ -136,7 +136,7 @@ def load_unsw_nb15(
         return full_df
     
     print(len(full_df))
-    partial_df = create_netflow_synthetic(full_df, desired_ratio=0.2, random_state=random_seed)
+    partial_df = create_netflow_synthetic(full_df, desired_ratio=0.2031, random_state=random_seed)
     print(len(partial_df))
     print(partial_df[column_map["Label"]].value_counts(normalize=True))
     partial_df = downsample_preserve_ratio(partial_df, total_size=max_rows, random_state=random_seed)

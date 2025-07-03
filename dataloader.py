@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
 column_map = {
         "srcip": 0,
@@ -41,12 +41,9 @@ def create_netflow_synthetic(df, desired_ratio=0.2, random_state=1):
     Returns:
         pd.DataFrame: Synthesized labeled NetFlow-like dataset
     """
-    # Step 1: Keep only NetFlow-compatible features + label
-    df = df[[column_map[i] for i in columns_to_use]]
-
-    # Step 2: Separate classes
-    df_anomaly = df[df[column_map["Label"]] == 1]
-    df_normal = df[df[column_map["Label"]] == 0]
+    # Step 1: Separate classes
+    df_anomaly = df[df["Label"] == 1]
+    df_normal = df[df["Label"] == 0]
 
     n_anomalies = len(df_anomaly)
     n_normals_needed = int((1 - desired_ratio) / desired_ratio * n_anomalies)
@@ -56,13 +53,13 @@ def create_netflow_synthetic(df, desired_ratio=0.2, random_state=1):
 
     df_normal_sampled = df_normal.sample(n=n_normals_needed, random_state=random_state)
 
-    # Step 3: Combine and shuffle
+    # Step 2: Combine and shuffle
     df_combined = pd.concat([df_anomaly, df_normal_sampled], ignore_index=True)
     df_combined = df_combined.sample(frac=1, random_state=random_state).reset_index(drop=True)
 
     return df_combined
 
-def downsample_preserve_ratio(df, total_size=700_000, random_state=1):
+def downsample_preserve_ratio(df, total_size=700000, random_state=1):
     """
     Downsample a DataFrame to a fixed number of rows while preserving class ratio.
 
@@ -76,27 +73,46 @@ def downsample_preserve_ratio(df, total_size=700_000, random_state=1):
         pd.DataFrame: Downsampled dataset with same class ratio
     """
     # Get the class distribution
-    value_counts = df[column_map["Label"]].value_counts(normalize=True)
+    value_counts = df["Label"].value_counts(normalize=True)
     ratios = value_counts.to_dict()
 
     # Sample each class proportionally
     dfs = []
     for label, ratio in ratios.items():
         n_samples = int(total_size * ratio)
-        subset = df[df[column_map["Label"]] == label].sample(n=n_samples, random_state=random_state)
+        subset = df[df["Label"] == label].sample(n=n_samples, random_state=random_state)
         dfs.append(subset)
 
     # Combine and shuffle
     result = pd.concat(dfs).sample(frac=1, random_state=random_state).reset_index(drop=True)
     return result
 
+def apply_le_transform(df):
+    encoder = LabelEncoder()
+    df["proto"] = encoder.fit_transform(df["proto"])
+    df["state"] = encoder.fit_transform(df["state"])
+    return df
+
+def apply_oh_transform(df):
+    encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+    cat_cols = ["proto", "state"]
+    cat_data = df[cat_cols]
+    encoded = encoder.fit_transform(cat_data)
+    encoded_df = pd.DataFrame(encoded, columns=encoder.get_feature_names_out(cat_cols), index=df.index)
+    # Step 6: Drop original columns and concatenate
+    df = df.drop(columns=cat_cols)
+    df = pd.concat([df, encoded_df], axis=1)
+
+    return df
+
 def load_unsw_nb15(
         csv_paths, 
-        train_frac=0.8,
+        test_frac=0.2,
         randomize=True, 
         random_seed=1, 
         max_rows=None,
-        test_original=False
+        test_original=False,
+        encoding="le"
 ):
     """
     Load and split the UNSW-NB15 dataset with optional row limit.
@@ -114,9 +130,6 @@ def load_unsw_nb15(
     
     columns = [column_map[col] for col in columns_to_use]
 
-    # For encoding categorical data
-    encoder = LabelEncoder()
-
     # Load and concatenate all CSVs
     dataframes = []
     rows_loaded = 0
@@ -126,8 +139,11 @@ def load_unsw_nb15(
         rows_loaded += len(df)
 
     full_df = pd.concat(dataframes, ignore_index=True)
-    full_df[4] = encoder.fit_transform(full_df[4])
-    full_df[5] = encoder.fit_transform(full_df[5])
+    full_df.columns = columns_to_use
+    if encoding == "le":
+        full_df = apply_le_transform(full_df)
+    elif encoding == "oh":
+        full_df = apply_oh_transform(full_df)
     full_df = full_df.apply(pd.to_numeric, errors='coerce')
 
     full_df = full_df.dropna()
@@ -135,26 +151,21 @@ def load_unsw_nb15(
     if test_original:
         return full_df
     
-    print(len(full_df))
     partial_df = create_netflow_synthetic(full_df, desired_ratio=0.2031, random_state=random_seed)
-    print(len(partial_df))
-    print(partial_df[column_map["Label"]].value_counts(normalize=True))
     partial_df = downsample_preserve_ratio(partial_df, total_size=max_rows, random_state=random_seed)
+    #print(partial_df)
+    #print(partial_df['Label'].value_counts())
     
-    # Optional shuffle
     if randomize:
         partial_df = partial_df.sample(frac=1, random_state=random_seed).reset_index(drop=True)
     
-    print(len(partial_df))
-    print(partial_df[column_map["Label"]].value_counts(normalize=True))
-
     # Assume last column is the label
-    X = partial_df.iloc[:, :-1]
-    y = partial_df.iloc[:, -1]
+    X = partial_df.drop(columns=["Label"])
+    y = partial_df["Label"]
 
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, train_size=train_frac, random_state=1, stratify=y
+        X, y, test_size=test_frac, random_state=1, stratify=y
     )
 
     return X_train, X_test, y_train, y_test

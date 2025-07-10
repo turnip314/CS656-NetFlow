@@ -2,30 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
-column_map = {
-        "srcip": 0,
-        "sport": 1,
-        "dstip": 2,
-        "dsport": 3,
-        "proto": 4,
-        "state": 5,
-        "dur": 6,
-        "sbytes": 7,
-        "spkts": 16,
-        "stime": 28,
-        "ltime": 29,
-        "Label": 48
-}
-columns_to_use = [
-    "sport",
-    "dsport",
-    "proto",
-    "state",
-    "dur",
-    "sbytes",
-    "spkts",
-    "Label",
-]
+
 
 def create_netflow_synthetic(df, desired_ratio=0.2, random_state=1):
     """
@@ -127,6 +104,31 @@ def load_unsw_nb15(
     Returns:
         (X_train, X_test, y_train, y_test): Tuple of train/test features and labels.
     """
+
+    column_map = {
+        "srcip": 0,
+        "sport": 1,
+        "dstip": 2,
+        "dsport": 3,
+        "proto": 4,
+        "state": 5,
+        "dur": 6,
+        "sbytes": 7,
+        "spkts": 16,
+        "stime": 28,
+        "ltime": 29,
+        "Label": 48
+    }
+    columns_to_use = [
+        "sport",
+        "dsport",
+        "proto",
+        "state",
+        "dur",
+        "sbytes",
+        "spkts",
+        "Label",
+    ]
     
     columns = [column_map[col] for col in columns_to_use]
 

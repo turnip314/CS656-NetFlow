@@ -1,7 +1,7 @@
 from classifier import load_data, classify, test
 TEST_RATIOS = [0.2, 0.3, 0.33, 0.4, 0.5]
 
-MODELS = ["svm", "sgd", "gnb", "dt", "rf", "ab", "knn"] #, 
+MODELS = ["svm", "sgd", "gnb", "dt", "rf", "ab",]# "knn"]
 SIZES = [700000]
 
 METRICS = ["acc", "f2", "auc"]
@@ -20,6 +20,7 @@ def run_all_tests(size=700000, encoding="le"):
         print(f"Running model {model}.")
         f.write("="*80+"\n")
         f.write(f"Model {model}.\n")
+        f.write("="*80+"\n")
         for description, (X_train, X_test, y_train, y_test) in all_datasets:
             cf, ttime = classify(model, X_train, y_train)
             f.write(f"Dataset: {description}\n")
@@ -38,4 +39,4 @@ def run_all_tests(size=700000, encoding="le"):
 
 
 if __name__ == "__main__":
-    run_all_tests()
+    run_all_tests(encoding="oh")

@@ -1,76 +1,82 @@
-================================================================================Model svm.
+================================================================================
+================================================================================
+Model svm.
 Dataset: 700000 rows with a 80/20 train/test split and le encoding.
-Training time: 3.61
+Training time: 3.54
 acc: 0.8473285714285714
 f2: 0.5130679024303021
 auc: 0.7121071150073489
 
 Dataset: 700000 rows with a 70/30 train/test split and le encoding.
-Training time: 3.33
+Training time: 3.25
 acc: 0.8456190476190476
 f2: 0.5031352568221097
 auc: 0.7070555832751587
 
 Dataset: 700000 rows with a 67/33 train/test split and le encoding.
-Training time: 3.19
+Training time: 3.06
 acc: 0.8436623376623377
 f2: 0.48961970755128764
 auc: 0.7003693557298698
 
 Dataset: 700000 rows with a 60/40 train/test split and le encoding.
-Training time: 2.89
+Training time: 2.81
 acc: 0.8444285714285714
 f2: 0.49504950495049505
 auc: 0.7030416441116657
 
 Dataset: 700000 rows with a 50/50 train/test split and le encoding.
-Training time: 1.84
+Training time: 1.8
 acc: 0.8030457142857143
 f2: 0.07067861803931831
 auc: 0.5253710240850031
 
 
-================================================================================Model sgd.
+================================================================================
+================================================================================
+Model sgd.
 Dataset: 700000 rows with a 80/20 train/test split and le encoding.
-Training time: 3.42
-acc: 0.45875
-f2: 0.5680188068222707
-auc: 0.5980983800621584
+Training time: 2.59
+acc: 0.7304571428571428
+f2: 0.4846751579002542
+auc: 0.6521695172577942
 
 Dataset: 700000 rows with a 70/30 train/test split and le encoding.
-Training time: 2.19
-acc: 0.8116809523809524
-f2: 0.08945635404913767
-auc: 0.5364233024973603
+Training time: 1.92
+acc: 0.8106523809523809
+f2: 0.08342650974606065
+auc: 0.5339173285720402
 
 Dataset: 700000 rows with a 67/33 train/test split and le encoding.
-Training time: 3.47
-acc: 0.631
-f2: 0.6654576391166414
-auc: 0.7213946398793143
+Training time: 1.29
+acc: 0.6179393939393939
+f2: 0.667205557511925
+auc: 0.7187270821692757
 
 Dataset: 700000 rows with a 60/40 train/test split and le encoding.
-Training time: 1.8
-acc: 0.6842714285714285
-f2: 0.47811750599520386
-auc: 0.6299653693406961
+Training time: 1.23
+acc: 0.6273428571428571
+f2: 0.6784671320072716
+auc: 0.7290823002827311
 
 Dataset: 700000 rows with a 50/50 train/test split and le encoding.
-Training time: 1.02
-acc: 0.6848571428571428
-f2: 0.1692680944985348
-auc: 0.4912793334281475
+Training time: 1.18
+acc: 0.8109171428571429
+f2: 0.09221537485868696
+auc: 0.5368403048907433
 
 
-================================================================================Model gnb.
+================================================================================
+================================================================================
+Model gnb.
 Dataset: 700000 rows with a 80/20 train/test split and le encoding.
-Training time: 0.08
+Training time: 0.07
 acc: 0.7588071428571429
 f2: 0.0750682253268706
 auc: 0.5002480487425103
 
 Dataset: 700000 rows with a 70/30 train/test split and le encoding.
-Training time: 0.06
+Training time: 0.07
 acc: 0.7586333333333334
 f2: 0.0751455129875771
 auc: 0.5001695687103674
@@ -94,129 +100,137 @@ f2: 0.07634258205119865
 auc: 0.5000390219281258
 
 
-================================================================================Model dt.
+================================================================================
+================================================================================
+Model dt.
 Dataset: 700000 rows with a 80/20 train/test split and le encoding.
-Training time: 2.5
-acc: 0.9889357142857143
-f2: 0.9721704253597439
-auc: 0.9825493712345793
+Training time: 2.83
+acc: 0.9889071428571429
+f2: 0.972207563764292
+auc: 0.9825707534152814
 
 Dataset: 700000 rows with a 70/30 train/test split and le encoding.
 Training time: 2.03
-acc: 0.9887857142857143
-f2: 0.9723563892145369
-auc: 0.9826561681292153
+acc: 0.9889285714285714
+f2: 0.9724215562121852
+auc: 0.9827021247391319
 
 Dataset: 700000 rows with a 67/33 train/test split and le encoding.
-Training time: 2.08
-acc: 0.9892294372294372
-f2: 0.9729246803756173
-auc: 0.9830218991926954
+Training time: 2.05
+acc: 0.9892857142857143
+f2: 0.9731088566786495
+auc: 0.9831366210970842
 
 Dataset: 700000 rows with a 60/40 train/test split and le encoding.
-Training time: 1.85
-acc: 0.9889964285714286
-f2: 0.9728626143473628
-auc: 0.9829740017043782
+Training time: 1.76
+acc: 0.9889571428571429
+f2: 0.9728142364774566
+auc: 0.9829428011528777
 
 Dataset: 700000 rows with a 50/50 train/test split and le encoding.
-Training time: 1.42
-acc: 0.9887085714285714
-f2: 0.9719529387928536
-auc: 0.9824068546972828
+Training time: 1.35
+acc: 0.9887857142857143
+f2: 0.9718547706163805
+auc: 0.9823504331023589
 
 
-================================================================================Model rf.
+================================================================================
+================================================================================
+Model rf.
 Dataset: 700000 rows with a 80/20 train/test split and le encoding.
-Training time: 56.44
-acc: 0.9908071428571429
-f2: 0.9789413773477519
-auc: 0.9867634437846317
+Training time: 54.91
+acc: 0.9908642857142858
+f2: 0.9792101398871629
+auc: 0.9869303262987856
 
 Dataset: 700000 rows with a 70/30 train/test split and le encoding.
-Training time: 46.26
-acc: 0.9908190476190476
-f2: 0.9789955920722881
-auc: 0.9867971190642703
+Training time: 47.03
+acc: 0.9908333333333333
+f2: 0.9791090917607382
+auc: 0.986867229373874
 
 Dataset: 700000 rows with a 67/33 train/test split and le encoding.
-Training time: 43.14
-acc: 0.9908658008658009
-f2: 0.9791986033043775
-auc: 0.9869233165191285
+Training time: 43.0
+acc: 0.990991341991342
+f2: 0.9797468462216394
+auc: 0.9872641443002323
 
 Dataset: 700000 rows with a 60/40 train/test split and le encoding.
-Training time: 37.59
-acc: 0.9908071428571429
-f2: 0.9789306894516429
-auc: 0.9867568923197705
+Training time: 37.68
+acc: 0.9908535714285714
+f2: 0.9791463933026759
+auc: 0.9868908464963053
 
 Dataset: 700000 rows with a 50/50 train/test split and le encoding.
-Training time: 31.16
-acc: 0.9905885714285714
-f2: 0.978585580395408
-auc: 0.9865372053077625
+Training time: 31.12
+acc: 0.9906571428571429
+f2: 0.9787541978726095
+auc: 0.9866431232307459
 
 
-================================================================================Model ab.
+================================================================================
+================================================================================
+Model ab.
 Dataset: 700000 rows with a 80/20 train/test split and le encoding.
-Training time: 14.32
+Training time: 15.33
 acc: 0.9607785714285715
 f2: 0.8628983981132211
 auc: 0.9163494469005781
 
 Dataset: 700000 rows with a 70/30 train/test split and le encoding.
-Training time: 11.88
+Training time: 12.33
 acc: 0.9608666666666666
 f2: 0.8631011054425858
 auc: 0.9164746029018644
 
 Dataset: 700000 rows with a 67/33 train/test split and le encoding.
-Training time: 11.07
+Training time: 12.19
 acc: 0.9607272727272728
 f2: 0.8628376606346708
 auc: 0.9163083587030219
 
 Dataset: 700000 rows with a 60/40 train/test split and le encoding.
-Training time: 9.72
+Training time: 11.72
 acc: 0.9574678571428571
 f2: 0.8525625981622227
 auc: 0.9101447782821442
 
 Dataset: 700000 rows with a 50/50 train/test split and le encoding.
-Training time: 9.14
+Training time: 10.27
 acc: 0.9605942857142857
 f2: 0.8622560122336512
 auc: 0.915966520509642
 
 
-================================================================================Model knn.
+================================================================================
+================================================================================
+Model knn.
 Dataset: 700000 rows with a 80/20 train/test split and le encoding.
-Training time: 1.28
+Training time: 1.34
 acc: 0.9721285714285715
 f2: 0.9098201679953224
 auc: 0.9443175533016281
 
 Dataset: 700000 rows with a 70/30 train/test split and le encoding.
-Training time: 1.0
+Training time: 1.04
 acc: 0.9715761904761905
 f2: 0.9071619551461982
 auc: 0.9427261938810103
 
 Dataset: 700000 rows with a 67/33 train/test split and le encoding.
-Training time: 0.86
+Training time: 1.0
 acc: 0.9715541125541125
 f2: 0.907107299330055
 auc: 0.9426923780670925
 
 Dataset: 700000 rows with a 60/40 train/test split and le encoding.
-Training time: 0.76
+Training time: 0.84
 acc: 0.9710178571428572
 f2: 0.9045624484461536
 auc: 0.9411704085394631
 
 Dataset: 700000 rows with a 50/50 train/test split and le encoding.
-Training time: 0.58
+Training time: 0.75
 acc: 0.9699485714285714
 f2: 0.9003279794805514
 auc: 0.9386231656814137

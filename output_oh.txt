@@ -1,6 +1,8 @@
-================================================================================Model svm.
+================================================================================
+================================================================================
+Model svm.
 Dataset: 700000 rows with a 80/20 train/test split and oh encoding.
-Training time: 2.68
+Training time: 2.65
 acc: 0.7959928571428572
 f2: 0.0014921312022188869
 auc: 0.4998763297917999
@@ -12,59 +14,63 @@ f2: 0.001432287860629622
 auc: 0.4993733469062444
 
 Dataset: 700000 rows with a 67/33 train/test split and oh encoding.
-Training time: 2.1
+Training time: 2.15
 acc: 0.7946320346320346
 f2: 0.0015400628770498768
 auc: 0.49903732594291433
 
 Dataset: 700000 rows with a 60/40 train/test split and oh encoding.
-Training time: 1.71
+Training time: 1.74
 acc: 0.79705
 f2: 0.0012085787114353521
 auc: 0.5004544452618072
 
 Dataset: 700000 rows with a 50/50 train/test split and oh encoding.
-Training time: 1.43
+Training time: 1.45
 acc: 0.7970571428571429
 f2: 0.001195411028018325
 auc: 0.5004549960350066
 
 
-================================================================================Model sgd.
+================================================================================
+================================================================================
+Model sgd.
 Dataset: 700000 rows with a 80/20 train/test split and oh encoding.
-Training time: 6.42
+Training time: 9.71
 acc: 0.7968928571428572
 f2: 0.0
 auc: 0.49999551834788375
 
 Dataset: 700000 rows with a 70/30 train/test split and oh encoding.
-Training time: 8.87
-acc: 0.6287904761904762
-f2: 0.3770285596453243
-auc: 0.5542388015900128
+Training time: 4.96
+acc: 0.7969
+f2: 0.0
+auc: 0.5
 
 Dataset: 700000 rows with a 67/33 train/test split and oh encoding.
-Training time: 6.15
-acc: 0.6880952380952381
-f2: 0.33921057334568083
-auc: 0.564374011372097
+Training time: 7.86
+acc: 0.7968961038961039
+f2: 0.0
+auc: 0.49999728384867775
 
 Dataset: 700000 rows with a 60/40 train/test split and oh encoding.
-Training time: 10.01
-acc: 0.7968964285714286
-f2: 0.0
-auc: 0.4999977591739419
+Training time: 7.48
+acc: 0.7833535714285714
+f2: 0.020031484174269622
+auc: 0.49761961494192264
 
 Dataset: 700000 rows with a 50/50 train/test split and oh encoding.
-Training time: 5.81
-acc: 0.6519657142857143
-f2: 0.1777966905170478
-auc: 0.4762922050596057
+Training time: 3.1
+acc: 0.4543028571428571
+f2: 0.6413189610303625
+auc: 0.6505683992658724
 
 
-================================================================================Model gnb.
+================================================================================
+================================================================================
+Model gnb.
 Dataset: 700000 rows with a 80/20 train/test split and oh encoding.
-Training time: 1.2
+Training time: 1.31
 acc: 0.7524857142857143
 f2: 0.01713831531188422
 auc: 0.4775577000463206
@@ -76,115 +82,121 @@ f2: 0.017156348952414576
 auc: 0.47727064629313065
 
 Dataset: 700000 rows with a 67/33 train/test split and oh encoding.
-Training time: 1.03
+Training time: 1.12
 acc: 0.7514891774891775
 f2: 0.016916954046034164
 auc: 0.4768678783908733
 
 Dataset: 700000 rows with a 60/40 train/test split and oh encoding.
-Training time: 1.02
+Training time: 0.96
 acc: 0.7508285714285714
 f2: 0.017208041712458374
 auc: 0.47655071407965977
 
 Dataset: 700000 rows with a 50/50 train/test split and oh encoding.
-Training time: 0.84
+Training time: 0.78
 acc: 0.7504371428571428
 f2: 0.017835791810068634
 auc: 0.4765082149543874
 
 
-================================================================================Model dt.
+================================================================================
+================================================================================
+Model dt.
 Dataset: 700000 rows with a 80/20 train/test split and oh encoding.
-Training time: 4.19
-acc: 0.9888642857142858
-f2: 0.9722095191191473
-auc: 0.982570069362029
+Training time: 4.13
+acc: 0.9889571428571429
+f2: 0.9723844367832266
+auc: 0.9826807425584296
 
 Dataset: 700000 rows with a 70/30 train/test split and oh encoding.
-Training time: 3.37
-acc: 0.9888904761904762
-f2: 0.9723420820591712
-auc: 0.9826520167350672
+Training time: 3.36
+acc: 0.9887428571428571
+f2: 0.9719140912651323
+auc: 0.9823846901950329
 
 Dataset: 700000 rows with a 67/33 train/test split and oh encoding.
-Training time: 3.42
-acc: 0.9892727272727273
-f2: 0.9730833852163308
-auc: 0.9831205314493975
+Training time: 3.24
+acc: 0.9891904761904762
+f2: 0.9728873404604632
+auc: 0.9829974538307955
 
 Dataset: 700000 rows with a 60/40 train/test split and oh encoding.
-Training time: 2.92
-acc: 0.9890357142857142
-f2: 0.9729324789150482
-auc: 0.9830183051856012
+Training time: 2.98
+acc: 0.9889214285714286
+f2: 0.9724254618620816
+auc: 0.9827041945518769
 
 Dataset: 700000 rows with a 50/50 train/test split and oh encoding.
-Training time: 2.47
-acc: 0.98876
-f2: 0.9719935724798577
-auc: 0.9824338814206308
+Training time: 2.29
+acc: 0.9886885714285715
+f2: 0.9717015647866711
+auc: 0.9822527944303554
 
 
-================================================================================Model rf.
+================================================================================
+================================================================================
+Model rf.
 Dataset: 700000 rows with a 80/20 train/test split and oh encoding.
-Training time: 76.92
-acc: 0.9907
-f2: 0.9790091887487004
-auc: 0.9868010424406675
+Training time: 75.24
+acc: 0.9907642857142858
+f2: 0.979220669743525
+auc: 0.9869330978177704
 
 Dataset: 700000 rows with a 70/30 train/test split and oh encoding.
-Training time: 66.6
-acc: 0.9906428571428572
-f2: 0.9787689454259325
-auc: 0.9866516304994767
+Training time: 61.95
+acc: 0.9907476190476191
+f2: 0.979083534723393
+auc: 0.9868483906944056
 
 Dataset: 700000 rows with a 67/33 train/test split and oh encoding.
-Training time: 58.69
-acc: 0.9906190476190476
-f2: 0.9788055672640108
-auc: 0.9866732015691221
+Training time: 57.21
+acc: 0.9906363636363636
+f2: 0.9789258573344403
+auc: 0.9867475957241708
 
 Dataset: 700000 rows with a 60/40 train/test split and oh encoding.
-Training time: 51.36
+Training time: 50.93
 acc: 0.9905678571428571
-f2: 0.978582744654468
-auc: 0.9865346908604032
+f2: 0.9785399885481032
+auc: 0.9865084850009586
 
 Dataset: 700000 rows with a 50/50 train/test split and oh encoding.
-Training time: 43.75
-acc: 0.9903342857142857
-f2: 0.977947458351132
-auc: 0.9861365645855321
+Training time: 40.79
+acc: 0.9903228571428572
+f2: 0.9781759634945433
+auc: 0.986276146755037
 
 
-================================================================================Model ab.
+================================================================================
+================================================================================
+Model ab.
 Dataset: 700000 rows with a 80/20 train/test split and oh encoding.
-Training time: 43.29
+Training time: 42.02
 acc: 0.9602071428571428
 f2: 0.8652289359497441
 auc: 0.9175632662979681
 
 Dataset: 700000 rows with a 70/30 train/test split and oh encoding.
-Training time: 36.53
+Training time: 36.56
 acc: 0.9578476190476191
 f2: 0.8500373881371059
 auc: 0.908815068862876
 
 Dataset: 700000 rows with a 67/33 train/test split and oh encoding.
-Training time: 38.61
+Training time: 35.53
 acc: 0.9605151515151515
 f2: 0.8671199145802009
 auc: 0.9186608609225869
 
 Dataset: 700000 rows with a 60/40 train/test split and oh encoding.
-Training time: 31.02
+Training time: 32.39
 acc: 0.9668821428571429
 f2: 0.8971210430827686
 auc: 0.93643975441941
 
 Dataset: 700000 rows with a 50/50 train/test split and oh encoding.
-Training time: 28.35
+Training time: 26.96
 acc: 0.9604085714285714
 f2: 0.8666365566404115
 auc: 0.9183762424051003

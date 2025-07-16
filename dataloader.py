@@ -2,7 +2,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
-
+_cached_df: pd.DataFrame | None
+_cached_df = None
 
 def create_netflow_synthetic(df, desired_ratio=0.2, random_state=1):
     """
@@ -23,16 +24,21 @@ def create_netflow_synthetic(df, desired_ratio=0.2, random_state=1):
     df_normal = df[df["Label"] == 0]
 
     n_anomalies = len(df_anomaly)
+    n_normals = len(df_normal)
     n_normals_needed = int((1 - desired_ratio) / desired_ratio * n_anomalies)
 
     if n_normals_needed > len(df_normal):
-        raise ValueError(f"Not enough normal records to match desired ratio. Needed: {n_normals_needed}, available: {len(df_normal)}")
+        n_anomalies_needed = int(desired_ratio/(1-desired_ratio) * n_normals)
+        df_anomaly_sampled = df_anomaly.sample(n=n_anomalies_needed, random_state=random_state)
 
-    df_normal_sampled = df_normal.sample(n=n_normals_needed, random_state=random_state)
+        df_combined = pd.concat([df_anomaly_sampled, df_normal], ignore_index=True)
+        df_combined = df_combined.sample(frac=1, random_state=random_state).reset_index(drop=True)
+    else:
+        df_normal_sampled = df_normal.sample(n=n_normals_needed, random_state=random_state)
 
-    # Step 2: Combine and shuffle
-    df_combined = pd.concat([df_anomaly, df_normal_sampled], ignore_index=True)
-    df_combined = df_combined.sample(frac=1, random_state=random_state).reset_index(drop=True)
+        # Step 2: Combine and shuffle
+        df_combined = pd.concat([df_anomaly, df_normal_sampled], ignore_index=True)
+        df_combined = df_combined.sample(frac=1, random_state=random_state).reset_index(drop=True)
 
     return df_combined
 
@@ -89,7 +95,9 @@ def load_unsw_nb15(
         random_seed=1, 
         max_rows=None,
         test_original=False,
-        encoding="le"
+        encoding="le",
+        do_downscale=True,
+        anomalous_ratio=0.2031
 ):
     """
     Load and split the UNSW-NB15 dataset with optional row limit.
@@ -132,31 +140,37 @@ def load_unsw_nb15(
     
     columns = [column_map[col] for col in columns_to_use]
 
-    # Load and concatenate all CSVs
-    dataframes = []
-    rows_loaded = 0
-    for path in csv_paths:
-        df = pd.read_csv(path, header = None, low_memory=False, usecols=columns)
-        dataframes.append(df)
-        rows_loaded += len(df)
+    global _cached_df
+    if _cached_df is None:
+        # Load and concatenate all CSVs
+        dataframes = []
+        rows_loaded = 0
+        for path in csv_paths:
+            df = pd.read_csv(path, header = None, low_memory=False, usecols=columns)
+            dataframes.append(df)
+            rows_loaded += len(df)
 
-    full_df = pd.concat(dataframes, ignore_index=True)
-    full_df.columns = columns_to_use
-    if encoding == "le":
-        full_df = apply_le_transform(full_df)
-    elif encoding == "oh":
-        full_df = apply_oh_transform(full_df)
-    full_df = full_df.apply(pd.to_numeric, errors='coerce')
+        full_df = pd.concat(dataframes, ignore_index=True)
+        full_df.columns = columns_to_use
+        if encoding == "le":
+            full_df = apply_le_transform(full_df)
+        elif encoding == "oh":
+            full_df = apply_oh_transform(full_df)
+        full_df = full_df.apply(pd.to_numeric, errors='coerce')
 
-    full_df = full_df.dropna()
+        full_df = full_df.dropna()
+        _cached_df = full_df.copy(deep=True)
+    else:
+        full_df = _cached_df.copy(deep=True)
 
     if test_original:
         return full_df
     
-    partial_df = create_netflow_synthetic(full_df, desired_ratio=0.2031, random_state=random_seed)
-    partial_df = downsample_preserve_ratio(partial_df, total_size=max_rows, random_state=random_seed)
-    #print(partial_df)
-    #print(partial_df['Label'].value_counts())
+    if do_downscale:
+        partial_df = create_netflow_synthetic(full_df, desired_ratio=anomalous_ratio, random_state=random_seed)
+        partial_df = downsample_preserve_ratio(partial_df, total_size=max_rows, random_state=random_seed)
+    else:
+        partial_df = full_df
     
     if randomize:
         partial_df = partial_df.sample(frac=1, random_state=random_seed).reset_index(drop=True)
@@ -167,7 +181,7 @@ def load_unsw_nb15(
 
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=test_frac, random_state=1, stratify=y
+        X, y, test_size=test_frac, random_state=random_seed, stratify=y
     )
 
     return X_train, X_test, y_train, y_test

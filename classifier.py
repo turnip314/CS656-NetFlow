@@ -8,20 +8,24 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import fbeta_score, roc_auc_score
 
 from dataloader import load_unsw_nb15
+import random
+
+from pathlib import Path
+this_dir = Path(__file__).parent
 
 import numpy as np
 import time
 
-DATA_ROOT = "D:/CS656/Project/data/"
+DATA_ROOT = this_dir/"data"
 csvs = [
         "UNSW-NB15_1.csv",
         "UNSW-NB15_2.csv",
         "UNSW-NB15_3.csv",
         "UNSW-NB15_4.csv"
     ]
-csvs = [DATA_ROOT + filename for filename in csvs]
+csvs = [DATA_ROOT/filename for filename in csvs]
 
-def get_classifier(name="rf"):
+def get_classifier(name="rf", metadata=None):
     if name == "rf":
         return RandomForestClassifier()
     elif name == "sgd":
@@ -36,14 +40,46 @@ def get_classifier(name="rf"):
         return KNeighborsClassifier()
     elif name == "ab":
         return AdaBoostClassifier()
+    elif name == "ab-custom":
+        return AdaBoostClassifier(estimator=DecisionTreeClassifier(max_depth=metadata), n_estimators=200, learning_rate=0.5)
     raise Exception(f"Invalid classifier: {name}.")
 
-def load_data(frac = 0.2, size = 700000, randomize = False, encoding="le"):
-    return load_unsw_nb15(csvs, test_frac=frac, randomize=randomize, max_rows=size, encoding=encoding)
+def load_data(
+        frac = 0.2, 
+        size = 700000, 
+        randomize = False, 
+        encoding="le", 
+        anomalous_ratio = 0.2031, 
+        downscale=True,
+        idx = (0,1,2,3)
+    ):
+    if idx != (0,1,2,3):
+        import dataloader
+        dataloader._cached_df = None
+    if randomize:
+        return load_unsw_nb15(
+            [csvs[i] for i in idx], 
+            test_frac=frac, 
+            randomize=randomize, 
+            random_seed=random.randint(0,99999999), 
+            max_rows=size, 
+            encoding=encoding,
+            do_downscale=downscale,
+            anomalous_ratio=anomalous_ratio
+        )
+    else:
+        return load_unsw_nb15(
+            [csvs[i] for i in idx], test_frac=frac, 
+            randomize=randomize, 
+            max_rows=size, 
+            encoding=encoding,
+            do_downscale=downscale,
+            anomalous_ratio=anomalous_ratio
+        )
 
-def classify(cf_name, X_train, y_train):
+def classify(cf_name, X_train, y_train, metadata=None):
+    cf = get_classifier(cf_name, metadata)
     t = time.monotonic()
-    cf = get_classifier(cf_name)
     cf.fit(X_train, y_train)
     return cf, time.monotonic() - t
 
